@@ -1,6 +1,20 @@
 @import "tailwindcss" theme(static);
 @import "@nuxt/ui";
 
-@theme {
+@theme static {
   --font-sans: 'Public Sans', sans-serif;
+  --pink: #FF4AFF;
+  --pink-16: rgba(255, 74, 255, 0.16);
+  /* --color-mybrand-50: #efc9ef;
+  --color-mybrand-100: #efc9ef;
+  --color-mybrand-200: #e5a5e5;
+  --color-mybrand-300: #b8a7ff;
+  --color-mybrand-400: #db81db;
+  --color-mybrand-500: #d05dd0;
+  --color-mybrand-600: #c639c6;
+  --color-mybrand-700: #a22fa2;
+  --color-mybrand-800: #7e247e;
+  --color-mybrand-900: #5a1a5a;
+  --color-mybrand-950: #361036; */
+  --ui-primary: #c92de1;
 }

@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import * as z from "zod";
+import {DateFormatter} from '@internationalized/date';
 import type { FormSubmitEvent } from "@nuxt/ui";
 import MyDatePicker from "~/components/MyDatePicker/MyDatePicker.vue";
-import { CalendarDate, getLocalTimeZone, today } from "@internationalized/date";
 
 const formRef = useTemplateRef("formRef");
 const schema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Must be at least 8 characters"),
-  date: z.string(),
+  date:z.union([z.string(), z.date()]).refine((val) => val, {
+      message: 'поле обязательно',
+    }),
 });
 
 type Schema = z.output<typeof schema>;
@@ -31,6 +33,21 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   state.password = undefined;
   state.date = '';
 }
+
+
+const formatter = new DateFormatter("ru-RU", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+});
+
+const dateData = shallowRef<Date | null>(null);
+
+watch(dateData, () => {
+  if (dateData.value) {
+    state.date = formatter.format(dateData.value);
+  }
+})
 </script>
 
 <template>
@@ -54,7 +71,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInput v-model="state.password" type="password" class="w-full" />
     </UFormField>
     <UFormField label="Date" name="date">
-      <MyDatePicker v-model="state.date" class="w-full" />
+      <MyDatePicker v-model="dateData" class="w-full" />
     </UFormField>
 
     <UButton type="submit"> {{ $t("loginForm.submit") }} </UButton>

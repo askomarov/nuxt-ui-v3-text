@@ -1,18 +1,28 @@
 <script setup lang="ts">
-import type {
-  CalendarDate
-} from "@internationalized/date";
-import {
+import { CalendarDate,
   DateFormatter,
-  getLocalTimeZone,
-  today,
-} from "@internationalized/date";
+  getLocalTimeZone } from "@internationalized/date";
 
 const df = new DateFormatter("en-US", {
   dateStyle: "medium",
 });
 
-const modelValue = defineModel<CalendarDate>(today(getLocalTimeZone()));
+const selected = defineModel<Date | null>()
+
+const toCalendarDate = (date: Date) => {
+  return new CalendarDate(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate()
+  )
+}
+
+const calendarDate = computed({
+  get: () =>
+  selected.value ? toCalendarDate(selected.value) : undefined,
+  set: (newValue: CalendarDate | null) =>
+    selected.value =  newValue ? newValue.toDate(getLocalTimeZone()) : new Date(),
+})
 
 </script>
 
@@ -21,13 +31,13 @@ const modelValue = defineModel<CalendarDate>(today(getLocalTimeZone()));
     <UPopover>
       <UButton color="neutral" variant="subtle" icon="i-lucide-calendar">
         {{
-          modelValue
-            ? df.format(modelValue.toDate(getLocalTimeZone()))
+          selected
+            ? df.format(selected)
             : "Select a date"
         }}
       </UButton>
       <template #content>
-        <UCalendar v-model="modelValue" class="p-2" />
+        <UCalendar v-model="calendarDate" class="p-2" />
       </template>
     </UPopover>
   </div>

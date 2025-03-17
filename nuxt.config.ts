@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/test-utils",
     "@nuxtjs/i18n",
+    "@vueuse/nuxt",
   ],
 
   css: ["~/assets/css/main.css"],
@@ -20,16 +21,6 @@ export default defineNuxtConfig({
   i18n: {
     lazy: true,
     strategy: 'no_prefix',
-    locales: [
-      {
-        code: "en",
-        name: "English",
-      },
-      {
-        code: "fr",
-        name: "Français",
-      },
-    ],
     vueI18n: '../i18n.config.ts'
   },
 

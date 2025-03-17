@@ -6,6 +6,7 @@
     <h1>My App Logo</h1>
     <NuxtLink to="/">Home</NuxtLink>
     <NuxtLink to="/about">About</NuxtLink>
+    <NuxtLink to="/form">Form</NuxtLink>
     <LangSwitcher />
   </header>
 </template>

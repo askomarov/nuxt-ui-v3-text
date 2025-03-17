@@ -1,0 +1,23 @@
+{
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "app.config.ts": "typescript"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "ui"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "ui:\\s*{([^)]*)\\s*}",
+      "(?:'|\"|`)([^']*)(?:'|\"|`)"
+    ],
+    [
+      "slots:\\s*{([\\s\\S]*?)}",
+      "\\s?[\\w].*:\\s*?[\"'`]([^\"'`]*).*?,?\\s?"
+    ]
+  ]
+}
